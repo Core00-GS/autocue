@@ -22,8 +22,8 @@
 
     <!-- 主内容区 -->
     <el-card class="main-card" :body-style="{ padding: '20px' }">
-      <el-row type="flex" justify="start" :gutter="20">
-        <el-col :span="4">
+      <div class="main-content-wrapper">
+        <div class="sidebar-wrapper">
           <el-menu 
             router
             background-color="#545c64" 
@@ -40,11 +40,11 @@
               <span>求打赏</span>
             </el-menu-item>
           </el-menu>
-        </el-col>
-        <el-col :span="20">
+        </div>
+        <div class="content-wrapper">
           <router-view></router-view>
-        </el-col>
-      </el-row>
+        </div>
+      </div>
     </el-card>
 
     <!-- 右侧联系栏 -->
@@ -141,7 +141,7 @@ body {
 /* 应用容器 */
 .app-container {
   padding: 20px;
-  max-width: 1400px;
+  max-width: 1800px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -245,6 +245,28 @@ body {
   backdrop-filter: blur(10px) !important;
 }
 
+/* 主内容包装器 */
+.main-content-wrapper {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  width: 100%;
+}
+
+/* 侧边栏包装器 */
+.sidebar-wrapper {
+  flex: 0 0 16.66666667%; /* 对应 :span="4" */
+  display: flex;
+  flex-direction: column;
+}
+
+/* 内容包装器 */
+.content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 /* 侧边栏菜单 */
 .sidebar-menu {
   border-radius: 20px !important;
@@ -254,9 +276,9 @@ body {
   backdrop-filter: blur(15px) !important;
   border: 2px solid rgba(255, 255, 255, 0.2) !important;
   transition: all 0.3s ease !important;
-  min-height: 750px;
   height: 100%;
-  max-height: 800px;
+  flex: 1;
+  width: 100%;
 }
 
 .sidebar-menu:hover {

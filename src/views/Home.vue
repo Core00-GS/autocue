@@ -36,7 +36,7 @@
               <el-input 
                 v-model="form.prompts" 
                 type="textarea" 
-                :rows="5" 
+                :rows="8" 
                 placeholder="生成的提示词将显示在这里..." 
                 maxlength="9999"
                 show-word-limit 
@@ -94,7 +94,7 @@
               <el-input 
                 v-model="form.negative_prompts" 
                 type="textarea" 
-                :rows="5" 
+                :rows="8" 
                 placeholder="反向提示词将显示在这里..." 
                 maxlength="9999"
                 show-word-limit 
@@ -153,7 +153,7 @@
 
           <!-- 标签分类 -->
           <div class="tags-section">
-            <el-tabs tabPosition="left" v-model="activeName" class="tags-tabs" :stretch="false">
+            <el-tabs tabPosition="left" v-model="activeName" class="tags-tabs" :stretch="false" style="padding: 20px 20px 0px 0px;">
               <el-tab-pane label="🏠 基础" name="basic">
                 <Basic :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
               </el-tab-pane>
@@ -499,6 +499,8 @@ export default {
   border: none !important;
   overflow: hidden;
   animation: slideInLeft 0.6s ease-out;
+  min-height: 750px;
+  height: auto;
 }
 
 /* 标签卡片 */
@@ -609,10 +611,11 @@ export default {
   background: rgba(255, 255, 255, 0.95) !important;
   backdrop-filter: blur(10px) !important;
   box-shadow: inset 0 3px 12px rgba(102, 126, 234, 0.15) !important;
-  padding: 16px 20px !important;
+  padding: 20px !important;
   font-family: 'PingFang SC', 'Helvetica Neue', Arial, 'Microsoft YaHei', sans-serif !important;
   color: #333 !important;
   font-weight: 500 !important;
+  min-height: 120px !important;
 }
 
 .prompt-input:focus {

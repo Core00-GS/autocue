@@ -1,5 +1,5 @@
 <template>
-    <div class="app-container" style="height: 600px;overflow-y: auto;">
+    <div class="app-container" style="height: 800px;overflow-y: auto;">
         <span v-for="prompt in prompts">
             <span v-if="prompt.visible">
                 <el-divider content-position="left">{{ prompt.name }}</el-divider>
@@ -107,6 +107,7 @@ export default {
 <style scoped>
 .app-container {
   padding: 20px;
+  margin: 10px;
   background: #f8f9fa;
   border-radius: 12px;
 }
