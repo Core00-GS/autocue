@@ -51,7 +51,7 @@
     <div id="kefu">
       <el-popover width="220" placement="left-end" trigger="hover" :close-delay="300" popper-class="custom-popover">
         <div class="popover-content">
-          <h4 class="popover-title">扫一扫联系飞兔小哥</h4>
+          <h4 class="popover-title">扫一扫联系</h4>
           <div class="popover-image">
             <img src="./assets/wechat.jpg" style="width: 100%; border-radius: 8px;" />
           </div>
