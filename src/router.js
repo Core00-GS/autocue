@@ -8,10 +8,6 @@ const routes = [
     {
         path: '/donate',
         component: () => import('./views/Donate.vue')
-    },
-    {
-        path: '/group',
-        component: () => import('./views/Group.vue')
     }
 ];
 

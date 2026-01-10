@@ -1,117 +1,180 @@
 <template>
-  <div class="app-container">
-    <el-row type="flex" justify="center" align="middle">
-      <h2>AI 标签生成器</h2>
-    </el-row>
-    <el-row type="flex" justify="center" :gutter="20">
+  <div class="home-container">
+    <!-- 主内容区 -->
+    <el-row type="flex" justify="center" :gutter="30" class="main-content">
+      <!-- 左侧提示词生成区 -->
       <el-col :span="12">
-        <el-form ref="form" :model="form" label-position="right" label-width="100px">
-          <el-form-item label="正向预览">
-            <el-row style="width:100%;height:6rem;overflow-y: scroll;">
-              <el-tag :key="prompt" v-for="prompt in this.form.vprompts" type="success" :closable="setting.del"
-                @close="closePrompt(prompt)" style="margin: .2rem;">
-                <span v-if="setting.en">{{ prompt.en }}</span>
-                <span v-if="setting.zh">「{{ prompt.zh }}」</span>
-              </el-tag>
-            </el-row>
-          </el-form-item>
-          <el-form-item>
-            <template v-slot:label>
-              <span style="align-items: center;">
-                <span>正向标签 </span>
-                <el-link type="primary" :underline="false">
-                  <el-tooltip placement="top" content="根据使用场景在右侧选择">
-                    <el-icon><Warning style="font-size: 15px; font-weight: 500" /></el-icon>
+        <el-card class="prompt-card" shadow="hover" :body-style="{ padding: '24px' }">
+          <!-- 正向预览 -->
+          <el-form ref="form" :model="form" label-position="top">
+            <el-form-item label="🌟 正向预览">
+              <div class="prompt-preview positive-preview">
+                <el-tag 
+                  :key="prompt" 
+                  v-for="prompt in this.form.vprompts" 
+                  type="success" 
+                  :closable="setting.del"
+                  @close="closePrompt(prompt)" 
+                  class="prompt-tag"
+                >
+                  <span v-if="setting.en">{{ prompt.en }}</span>
+                  <span v-if="setting.zh">「{{ prompt.zh }}」</span>
+                </el-tag>
+              </div>
+            </el-form-item>
+
+            <!-- 正向标签 -->
+            <el-form-item>
+              <template v-slot:label>
+                <div class="form-label">
+                  <span>✨ 正向标签</span>
+                  <el-tooltip placement="top" content="根据使用场景在右侧选择标签">
+                    <el-icon class="tooltip-icon"><QuestionFilled /></el-icon>
                   </el-tooltip>
-                </el-link>
-              </span>
-            </template>
-            <el-input v-model="form.prompts" type="textarea" :rows="5" placeholder="prompt" maxlength="9999"
-              show-word-limit />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" plain @click="copyPrompt" class="copyBtn">复制</el-button>
-            <el-button type="warning" style="margin-left: .5rem;" plain @click="cancelPrompts">清空</el-button>
-            <el-button style="margin-left: .5rem;" plain @click="initPrompts">默认</el-button>
-            <el-button type="danger" style="margin-left: .5rem;" plain v-if="setting.adult"
-              @click="adultPrompt">大人默认</el-button>
-          </el-form-item>
-          <el-form-item label="反向预览">
-            <el-row style="width:100%;height:6rem;overflow-y: scroll;">
-              <el-tag :key="prompt" v-for="prompt in this.form.vnegative_prompts" type="danger" :closable="setting.del"
-                @close="closeNegativePrompt(prompt)" style="margin: .2rem;">
-                <span v-if="setting.en">{{ prompt.en }}</span>
-                <span v-if="setting.zh">「{{ prompt.zh }}」</span>
-              </el-tag>
-            </el-row>
-          </el-form-item>
-          <el-form-item>
-            <template v-slot:label>
-              <span style="align-items: center;">
-                <span>反向标签 </span>
-                <el-link type="primary" :underline="false">
+                </div>
+              </template>
+              <el-input 
+                v-model="form.prompts" 
+                type="textarea" 
+                :rows="5" 
+                placeholder="生成的提示词将显示在这里..." 
+                maxlength="9999"
+                show-word-limit 
+                class="prompt-input"
+              />
+            </el-form-item>
+
+            <!-- 正向标签操作按钮 -->
+            <el-form-item class="form-buttons">
+              <el-button type="primary" @click="copyPrompt" class="action-button primary-button">
+                <el-icon><DocumentCopy /></el-icon>
+                复制
+              </el-button>
+              <el-button type="warning" @click="cancelPrompts" class="action-button warning-button">
+                <el-icon><Delete /></el-icon>
+                清空
+              </el-button>
+              <el-button @click="initPrompts" class="action-button default-button">
+                <el-icon><Refresh /></el-icon>
+                默认
+              </el-button>
+              <el-button type="danger" v-if="setting.adult" @click="adultPrompt" class="action-button danger-button">
+                <el-icon><Lock /></el-icon>
+                大人默认
+              </el-button>
+            </el-form-item>
+
+            <!-- 反向预览 -->
+            <el-form-item label="🚫 反向预览">
+              <div class="prompt-preview negative-preview">
+                <el-tag 
+                  :key="prompt" 
+                  v-for="prompt in this.form.vnegative_prompts" 
+                  type="danger" 
+                  :closable="setting.del"
+                  @close="closeNegativePrompt(prompt)" 
+                  class="prompt-tag"
+                >
+                  <span v-if="setting.en">{{ prompt.en }}</span>
+                  <span v-if="setting.zh">「{{ prompt.zh }}」</span>
+                </el-tag>
+              </div>
+            </el-form-item>
+
+            <!-- 反向标签 -->
+            <el-form-item>
+              <template v-slot:label>
+                <div class="form-label">
+                  <span>💥 反向标签</span>
                   <el-tooltip placement="top" content="反向提示词基本万能，无需修改">
-                    <el-icon><Warning style="font-size: 15px; font-weight: 500" /></el-icon>
+                    <el-icon class="tooltip-icon"><QuestionFilled /></el-icon>
                   </el-tooltip>
-                </el-link>
-              </span>
-            </template>
-            <el-input v-model="form.negative_prompts" type="textarea" :rows="5" placeholder="negative prompt"
-              maxlength="9999" show-word-limit />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" plain @click="copyNegativePrompt" class="copyBtn">复制</el-button>
-            <el-button style="margin-left: .5rem;" plain @click="initNegativePrompts">默认</el-button>
-          </el-form-item>
-        </el-form>
+                </div>
+              </template>
+              <el-input 
+                v-model="form.negative_prompts" 
+                type="textarea" 
+                :rows="5" 
+                placeholder="反向提示词将显示在这里..." 
+                maxlength="9999"
+                show-word-limit 
+                class="prompt-input"
+              />
+            </el-form-item>
+
+            <!-- 反向标签操作按钮 -->
+            <el-form-item class="form-buttons">
+              <el-button type="primary" @click="copyNegativePrompt" class="action-button primary-button">
+                <el-icon><DocumentCopy /></el-icon>
+                复制
+              </el-button>
+              <el-button @click="initNegativePrompts" class="action-button default-button">
+                <el-icon><Refresh /></el-icon>
+                默认
+              </el-button>
+            </el-form-item>
+          </el-form>
+        </el-card>
       </el-col>
+
+      <!-- 右侧标签选择区 -->
       <el-col :span="12">
-        <el-steps simple>
-          <el-switch v-model="setting.en" inactive-text="英文" disabled />
-          <el-switch v-model="setting.zh" inactive-text="中文" />
-          <el-switch v-model="setting.down" inactive-text="降权" />
-          <el-switch v-model="setting.up" inactive-text="加权" />
-          <el-switch v-model="setting.del" inactive-text="删除" />
-          <el-switch v-model="setting.adult" inactive-text="大人" />
-        </el-steps>
-        <el-tabs tabPosition="left" v-model="activeName" style="height: 600px; background: var(--el-fill-color-light);">
-          <el-tab-pane label="基础" name="basic">
-            <Basic :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="环境" name="environment">
-            <Environment :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="风格" name="style">
-            <Style :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="人物" name="character">
-            <Character :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="头发" name="hair">
-            <Hair :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="脸部" name="face">
-            <Face :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="手部" name="hand">
-            <Hand :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="胸部" name="chest">
-            <Chest :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="腿部" name="foot">
-            <Foot :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="服饰" name="dress">
-            <Dress :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="动作" name="action">
-            <Action :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-          <el-tab-pane label="机甲" name="mecha">
-            <Mecha :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
-          </el-tab-pane>
-        </el-tabs>
+        <el-card class="tags-card" shadow="hover" :body-style="{ padding: '24px' }">
+          <!-- 设置开关 -->
+          <div class="settings-section">
+            <h3 class="section-title">⚙️ 标签设置</h3>
+            <el-space wrap class="settings-switches">
+              <el-switch v-model="setting.en" inactive-text="英文" disabled class="setting-switch" />
+              <el-switch v-model="setting.zh" inactive-text="中文" class="setting-switch" />
+              <el-switch v-model="setting.down" inactive-text="降权" class="setting-switch" />
+              <el-switch v-model="setting.up" inactive-text="加权" class="setting-switch" />
+              <el-switch v-model="setting.del" inactive-text="删除" class="setting-switch" />
+              <el-switch v-model="setting.adult" inactive-text="大人" class="setting-switch" />
+            </el-space>
+          </div>
+
+          <!-- 标签分类 -->
+          <div class="tags-section">
+            <el-tabs tabPosition="left" v-model="activeName" class="tags-tabs">
+              <el-tab-pane label="🏠 基础" name="basic">
+                <Basic :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="🌍 环境" name="environment">
+                <Environment :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="🎨 风格" name="style">
+                <Style :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="👤 人物" name="character">
+                <Character :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="💇 头发" name="hair">
+                <Hair :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="😊 脸部" name="face">
+                <Face :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="✋ 手部" name="hand">
+                <Hand :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="👙 胸部" name="chest">
+                <Chest :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="🦵 腿部" name="foot">
+                <Foot :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="👗 服饰" name="dress">
+                <Dress :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="💃 动作" name="action">
+                <Action :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+              <el-tab-pane label="🤖 机甲" name="mecha">
+                <Mecha :setting="this.setting" :vprompts="this.form.vprompts" @selectPrompt="selectPrompt" />
+              </el-tab-pane>
+            </el-tabs>
+          </div>
+        </el-card>
       </el-col>
     </el-row>
   </div>
@@ -120,6 +183,13 @@
 <script>
 import { ElMessage } from 'element-plus'
 import Clipboard from 'clipboard'
+import { 
+  QuestionFilled, 
+  DocumentCopy, 
+  Delete, 
+  Refresh, 
+  Lock
+} from '@element-plus/icons'
 
 import Basic from '../components/Basic.vue'
 import Environment from '../components/Environment.vue'
@@ -148,7 +218,12 @@ export default {
     Foot,
     Dress,
     Action,
-    Mecha
+    Mecha,
+    QuestionFilled,
+    DocumentCopy,
+    Delete,
+    Refresh,
+    Lock
   },
   data() {
     return {
@@ -386,7 +461,304 @@ export default {
 </script>
 
 <style scoped>
-.el-switch {
-  margin: 0 1rem;
+/* 页面容器 */
+.home-container {
+  padding: 20px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+
+
+/* 主内容区 */
+.main-content {
+  margin-top: 20px;
+}
+
+/* 提示词卡片 */
+.prompt-card {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  border: none !important;
+  overflow: hidden;
+  animation: slideInLeft 0.6s ease-out;
+}
+
+/* 标签卡片 */
+.tags-card {
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  border: none !important;
+  overflow: hidden;
+  animation: slideInRight 0.6s ease-out;
+  height: 750px;
+}
+
+/* 表单标签 */
+.form-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.tooltip-icon {
+  font-size: 16px;
+  cursor: help;
+  color: #667eea;
+}
+
+/* 提示词预览 */
+.prompt-preview {
+  width: 100%;
+  min-height: 100px;
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  background: rgba(240, 242, 245, 0.8);
+  border: 1px solid #e4e7ed;
+}
+
+.positive-preview {
+  background: linear-gradient(135deg, rgba(221, 244, 216, 0.8), rgba(240, 242, 245, 0.8));
+  border-color: #c2e7b0;
+}
+
+.negative-preview {
+  background: linear-gradient(135deg, rgba(255, 221, 220, 0.8), rgba(240, 242, 245, 0.8));
+  border-color: #ffccc7;
+}
+
+/* 提示词标签 */
+.prompt-tag {
+  margin: 4px !important;
+  font-size: 14px !important;
+  border-radius: 16px !important;
+  padding: 4px 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+.prompt-tag:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 提示词输入框 */
+.prompt-input {
+  border-radius: 12px !important;
+  border: 2px solid #e4e7ed !important;
+  transition: all 0.3s ease !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+.prompt-input:focus {
+  border-color: #667eea !important;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2) !important;
+}
+
+/* 表单按钮 */
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.action-button {
+  border-radius: 20px !important;
+  padding: 8px 20px !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition: all 0.3s ease !important;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border: none !important;
+  color: white !important;
+}
+
+.primary-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4) !important;
+}
+
+.warning-button {
+  border-color: #faad14 !important;
+  color: #faad14 !important;
+}
+
+.warning-button:hover {
+  background: #faad14 !important;
+  color: white !important;
+}
+
+.default-button {
+  border-color: #d9d9d9 !important;
+  color: #666 !important;
+}
+
+.default-button:hover {
+  border-color: #667eea !important;
+  color: #667eea !important;
+}
+
+.danger-button {
+  border-color: #ff4d4f !important;
+  color: #ff4d4f !important;
+}
+
+.danger-button:hover {
+  background: #ff4d4f !important;
+  color: white !important;
+}
+
+/* 设置区域 */
+.settings-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.settings-switches {
+  background: rgba(240, 242, 245, 0.8);
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e4e7ed;
+}
+
+.setting-switch {
+  margin: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+/* 标签区域 */
+.tags-section {
+  margin-top: 20px;
+}
+
+.tags-tabs {
+  height: 600px;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+
+.tags-tabs .el-tabs__header {
+  background: rgba(240, 242, 245, 0.8);
+  border-right: 1px solid #e4e7ed;
+  padding: 10px 0;
+}
+
+.tags-tabs .el-tabs__item {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 5px 0;
+  padding: 12px 16px;
+  border-radius: 8px 0 0 8px;
+  transition: all 0.3s ease;
+}
+
+.tags-tabs .el-tabs__item:hover {
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+}
+
+.tags-tabs .el-tabs__item.is-active {
+  color: #667eea;
+  font-weight: 600;
+  background: rgba(102, 126, 234, 0.1);
+  border-right: 3px solid #667eea;
+}
+
+.tags-tabs .el-tabs__content {
+  padding: 20px;
+  background: white;
+  overflow-y: auto;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 10px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+  }
+  
+  .form-buttons {
+    flex-direction: column;
+  }
+  
+  .action-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .tags-card {
+    height: auto;
+    min-height: 600px;
+  }
+  
+  .tags-tabs {
+    height: 500px;
+  }
 }
 </style>
