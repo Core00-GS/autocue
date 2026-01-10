@@ -77,5 +77,5 @@ npm run tinygeeker
 ---
 
 <p align="center">
-  Made with ❤️ by <a href="https://tinygeeker.com" target="_blank">tinygeeker</a>
+  Made with ❤️ by <a href="https://juejin.cn/user/2467756640574845" target="_blank">江户川柯北</a>
 </p>
