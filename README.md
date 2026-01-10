@@ -22,7 +22,6 @@
 
 ## 🚀 快速开始
 
-### 方法一：克隆仓库
 ```bash
 # 克隆项目
 git clone https://github.com/tinygeeker/aiManagerPrompter.git
@@ -36,10 +35,6 @@ npm install
 # 启动开发服务器
 npm run tinygeeker
 ```
-
-### 方法二：直接访问
-如果你不想本地部署，可以直接访问在线版本：
-> 🔗 [在线体验地址](https://tinygeeker.com/aiManagerPrompter?from=github)
 
 ## 📦 技术栈
 - **前端框架**：Vue 3.2.13+
