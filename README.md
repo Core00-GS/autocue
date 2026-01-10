@@ -9,7 +9,7 @@
 </p>
 
 ## 📸 项目预览
-![项目预览](https://tinygeeker.github.io/static/imgs/autocue/001.png)
+![项目预览](https://tinygeeker.github.io/assets/preview/0000000003.png)
 
 ## ✨ 功能特色
 - 🎯 **智能分类**：标签按类别整齐排列，查找更方便

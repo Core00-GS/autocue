@@ -179,57 +179,13 @@ h2 {
   color: #666;
   margin: 0;
 }
-
 /* 表格样式 */
 :deep(.el-table) {
   border-radius: 12px !important;
   overflow: hidden !important;
 }
 
-:deep(.el-table__header-wrapper) {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-:deep(.el-table__header th) {
-  color: white !important;
-  font-weight: 600 !important;
-  text-align: center !important;
-}
-
-/* 表头标题样式 */
-.table-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.header-tooltip {
-  font-size: 14px;
-  cursor: help;
-  opacity: 0.8;
-  transition: all 0.3s ease;
-}
-
-.header-tooltip:hover {
-  opacity: 1;
-  transform: scale(1.1);
-}
-
-/* 表头样式增强 */
-.table-header-row {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  color: white !important;
-}
-
-:deep(.el-table__header th) {
-  color: white !important;
-  font-weight: 600 !important;
-  text-align: center !important;
-  padding: 12px 0 !important;
-  font-size: 14px !important;
-}
-
+/* 表头样式 */
 :deep(.el-table__header-wrapper) {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
   border-radius: 8px 8px 0 0 !important;
@@ -240,6 +196,27 @@ h2 {
   width: 100% !important;
 }
 
+:deep(.el-table__header th) {
+  color: white !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  padding: 12px 0 !important;
+  font-size: 14px !important;
+  border-bottom: none !important;
+}
+
+:deep(.el-table__header th>.cell) {
+  color: white !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  font-size: 14px !important;
+}
+
+/* 表头行样式 */
+.table-header-row {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+}
 :deep(.el-table__body tr:hover) {
   background: #f5f7ff !important;
 }
