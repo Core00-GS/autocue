@@ -123,14 +123,32 @@
           <!-- 设置开关 -->
           <div class="settings-section">
             <h3 class="section-title">⚙️ 标签设置</h3>
-            <el-space wrap class="settings-switches">
-              <el-switch v-model="setting.en" inactive-text="英文" disabled class="setting-switch" />
-              <el-switch v-model="setting.zh" inactive-text="中文" class="setting-switch" />
-              <el-switch v-model="setting.down" inactive-text="降权" class="setting-switch" />
-              <el-switch v-model="setting.up" inactive-text="加权" class="setting-switch" />
-              <el-switch v-model="setting.del" inactive-text="删除" class="setting-switch" />
-              <el-switch v-model="setting.adult" inactive-text="大人" class="setting-switch" />
-            </el-space>
+            <div class="settings-grid">
+              <div class="setting-item">
+                <span class="setting-label">英文显示</span>
+                <el-switch v-model="setting.en" disabled class="setting-switch" />
+              </div>
+              <div class="setting-item">
+                <span class="setting-label">中文显示</span>
+                <el-switch v-model="setting.zh" class="setting-switch" />
+              </div>
+              <div class="setting-item">
+                <span class="setting-label">支持降权</span>
+                <el-switch v-model="setting.down" class="setting-switch" />
+              </div>
+              <div class="setting-item">
+                <span class="setting-label">支持加权</span>
+                <el-switch v-model="setting.up" class="setting-switch" />
+              </div>
+              <div class="setting-item">
+                <span class="setting-label">支持删除</span>
+                <el-switch v-model="setting.del" class="setting-switch" />
+              </div>
+              <div class="setting-item">
+                <span class="setting-label">大人模式</span>
+                <el-switch v-model="setting.adult" class="setting-switch" />
+              </div>
+            </div>
           </div>
 
           <!-- 标签分类 -->
@@ -623,25 +641,65 @@ export default {
 /* 设置区域 */
 .settings-section {
   margin-bottom: 24px;
+  background: linear-gradient(135deg, #f5f7ff 0%, #eef0ff 100%);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.1);
 }
 
 .section-title {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  color: #667eea;
+  text-align: center;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.setting-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.setting-item:hover {
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+  transform: translateY(-2px);
+}
+
+.setting-label {
+  font-size: 14px;
+  font-weight: 500;
   color: #333;
 }
 
-.settings-switches {
-  background: rgba(240, 242, 245, 0.8);
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid #e4e7ed;
+.setting-switch {
+  transition: all 0.3s ease !important;
 }
 
-.setting-switch {
-  margin: 8px !important;
-  transition: all 0.3s ease !important;
+.setting-switch .el-switch__core {
+  border-radius: 20px !important;
+  width: 60px !important;
+  height: 30px !important;
+}
+
+.setting-switch .el-switch__button {
+  width: 26px !important;
+  height: 26px !important;
+}
+
+.setting-switch.is-checked .el-switch__core {
+  background-color: #667eea !important;
 }
 
 /* 标签区域 */

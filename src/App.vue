@@ -2,19 +2,20 @@
   <div class="app-container">
     <!-- 页面标题 -->
     <div class="page-header">
+      <!-- 粒子特效 -->
+      <div class="particles-container">
+        <div v-for="i in 20" :key="i" class="particle" :class="['small', 'medium', 'large'][i % 3]" :style="{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          animationDelay: `${Math.random() * 6}s`,
+          animationDuration: `${4 + Math.random() * 4}s`
+        }"></div>
+      </div>
+      
       <div class="header-content">
-        <div class="header-icon">
-          <el-icon class="magic-icon"><MagicStick /></el-icon>
-        </div>
         <div class="header-text">
           <h2 class="page-title">AI 标签生成器</h2>
           <p class="page-description">轻松创建专业的AI绘画提示词，让你的创作更上一层楼！</p>
-        </div>
-        <div class="header-buttons">
-          <el-button type="primary" size="small" class="header-button">
-            <el-icon><Refresh /></el-icon>
-            重置
-          </el-button>
         </div>
       </div>
     </div>
@@ -126,139 +127,169 @@ body {
 
 /* 页面标题 */
 .page-header {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.4);
   backdrop-filter: blur(10px);
-  padding: 20px;
+  padding: 40px 20px;
   margin-bottom: 30px;
   animation: slideDown 0.6s ease-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 粒子容器 */
+.particles-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(102, 126, 234, 0.3);
+  animation: float 6s ease-in-out infinite;
+}
+
+/* 不同大小的粒子 */
+.particle.small {
+  width: 4px;
+  height: 4px;
+  animation-duration: 4s;
+}
+
+.particle.medium {
+  width: 8px;
+  height: 8px;
+  animation-duration: 6s;
+}
+
+.particle.large {
+  width: 12px;
+  height: 12px;
+  animation-duration: 8s;
 }
 
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.header-icon {
-  flex-shrink: 0;
-}
-
-.magic-icon {
-  font-size: 48px;
-  color: #667eea;
-  animation: rotate 3s linear infinite;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
 }
 
 .header-text {
-  flex: 1;
+  text-align: center;
+  max-width: 800px;
 }
 
 .page-title {
-  font-size: 28px;
+  font-size: 36px;
   font-weight: bold;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 5px;
+  color: white;
+  margin-bottom: 10px;
+  animation: glow 2s ease-in-out infinite alternate;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .page-description {
-  font-size: 14px;
-  color: #666;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
   margin: 0;
-}
-
-.header-buttons {
-  flex-shrink: 0;
-}
-
-.header-button {
-  border-radius: 20px !important;
-  font-weight: 500 !important;
-  display: flex !important;
-  align-items: center !important;
-  gap: 6px !important;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  border: none !important;
-}
-
-.header-button:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4) !important;
+  animation: fadeInUp 1s ease-out 0.3s both;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* 主卡片 */
 .main-card {
-  border-radius: 16px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12) !important;
   border: none !important;
   overflow: hidden;
   animation: fadeIn 0.8s ease-out;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 /* 侧边栏菜单 */
 .sidebar-menu {
-  border-radius: 12px !important;
+  border-radius: 16px !important;
   overflow: hidden !important;
-  background: rgba(84, 92, 100, 0.9) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  background: rgba(84, 92, 100, 0.95) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 .menu-item {
   display: flex !important;
   align-items: center !important;
-  gap: 8px !important;
+  gap: 12px !important;
   transition: all 0.3s ease !important;
-  height: 60px !important;
+  height: 65px !important;
+  font-size: 16px !important;
+  border-left: 4px solid transparent !important;
 }
 
 .menu-item:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-left-color: rgba(102, 126, 234, 0.5) !important;
+  transform: translateX(5px) !important;
 }
 
 .menu-item.is-active {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-left-color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
 }
 
 .menu-item .el-icon {
-  font-size: 18px !important;
+  font-size: 20px !important;
+  margin-left: 10px !important;
+}
+
+.menu-item span {
+  font-weight: 500 !important;
 }
 
 /* 右侧联系栏 */
 #kefu {
   position: fixed;
-  right: 20px;
+  right: 30px;
   bottom: 50%;
   transform: translateY(50%);
   z-index: 999;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   animation: slideInRight 0.6s ease-out;
 }
 
 .kefu-icon {
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   color: white;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
   transition: all 0.3s ease;
   border: none;
+  backdrop-filter: blur(10px);
 }
 
 .kefu-icon:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.6);
+  transform: scale(1.15);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.7);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
 }
 
 /* 动画效果 */
@@ -273,12 +304,42 @@ body {
   }
 }
 
-@keyframes rotate {
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-15px) translateX(10px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-5px) translateX(-15px);
+    opacity: 0.8;
+  }
+  75% {
+    transform: translateY(-20px) translateX(5px);
+    opacity: 0.5;
+  }
+}
+
+@keyframes glow {
   from {
-    transform: rotate(0deg);
+    filter: drop-shadow(0 0 2px rgba(102, 126, 234, 0.5));
   }
   to {
-    transform: rotate(360deg);
+    filter: drop-shadow(0 0 15px rgba(102, 126, 234, 0.8));
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
