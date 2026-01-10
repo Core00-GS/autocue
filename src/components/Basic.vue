@@ -105,12 +105,70 @@ export default {
   
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.el-button {
-    margin-left: .2rem;
-    margin-bottom: .5rem;
+.app-container {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.el-divider {
+  margin: 20px 0 !important;
+}
+
+.el-divider__text {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: #667eea !important;
+  background: #f8f9fa !important;
+  padding: 0 15px !important;
 }
 
 .prompt {
-    margin: 2px;
+  margin: 4px;
+  display: inline-block;
+}
+
+.el-button {
+  margin: 6px !important;
+  border-radius: 20px !important;
+  padding: 6px 16px !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease !important;
+  border-width: 2px !important;
+}
+
+.el-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2) !important;
+}
+
+.el-button--primary.is-plain {
+  border-color: #667eea !important;
+  color: #667eea !important;
+}
+
+.el-button--primary.is-plain:hover {
+  background: #667eea !important;
+  color: white !important;
+}
+
+.el-button--success.is-plain {
+  border-color: #67c23a !important;
+  color: #67c23a !important;
+}
+
+.el-button--success.is-plain:hover {
+  background: #67c23a !important;
+  color: white !important;
+}
+
+.el-button--danger.is-plain {
+  border-color: #f56c6c !important;
+  color: #f56c6c !important;
+}
+
+.el-button--danger.is-plain:hover {
+  background: #f56c6c !important;
+  color: white !important;
 }
 </style>

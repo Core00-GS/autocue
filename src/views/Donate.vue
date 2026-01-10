@@ -1,21 +1,21 @@
 <template>
   <div class="app-container">
-    <el-row type="flex" justify="center" align="middle">
-      <h2>打赏创作者</h2>
-    </el-row>
+
     
     <!-- 打赏图片 -->
     <el-row type="flex" justify="center" :gutter="20" style="margin-bottom: 30px;">
       <el-col :span="20" style="display: flex; justify-content: center; align-items: center;">
-        <el-card shadow="hover" :body-style="{ padding: '0' }" class="donate-card">
-          <el-image 
-            style="width: 100%; max-width: 400px; margin: 0 auto; display: block;"
-            :src="require('@/assets/donate.jpg')"
-            fit="contain"
-          />
+        <el-card shadow="hover" :body-style="{ padding: '20px' }" class="donate-card">
           <div class="donate-info">
             <h3>感谢您的支持！</h3>
             <p>您的打赏是我持续更新的动力</p>
+          </div>
+          <div class="donate-image">
+            <el-image 
+              style="width: 100%; border-radius: 12px;"
+              :src="require('@/assets/donate.jpg')"
+              fit="cover"
+            />
           </div>
         </el-card>
       </el-col>
@@ -50,7 +50,7 @@
               />
               <el-table-column
                 prop="feedback"
-                label="反馈"
+                label="需求"
                 min-width="150"
               />
             </el-table>
@@ -87,8 +87,9 @@ export default {
 
 <style scoped>
 .app-container {
-  padding: 20px;
+  padding: 0;
   animation: fadeIn 0.8s ease-out;
+  width: 100%;
 }
 
 h2 {
@@ -107,6 +108,7 @@ h2 {
   box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2) !important;
   overflow: hidden !important;
   transition: all 0.3s ease !important;
+  max-width: 600px !important;
 }
 
 .donate-card:hover {
@@ -117,20 +119,29 @@ h2 {
 .donate-info {
   padding: 20px;
   text-align: center;
-  background: linear-gradient(135deg, #f5f7ff 0%, #eef0ff 100%);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  color: white;
 }
 
 .donate-info h3 {
+  color: white !important;
   font-size: 18px;
   font-weight: 600;
-  color: #667eea;
   margin-bottom: 8px;
 }
 
 .donate-info p {
+  color: rgba(255, 255, 255, 0.9) !important;
   font-size: 14px;
-  color: #666;
   margin: 0;
+}
+
+.donate-image {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* 记录卡片 */

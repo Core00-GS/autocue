@@ -480,9 +480,10 @@ export default {
 
 <style scoped>
 /* 页面容器 */
-.home-container {
-  padding: 20px;
+.app-container {
+  padding: 0;
   animation: fadeIn 0.8s ease-out;
+  width: 100%;
 }
 
 
