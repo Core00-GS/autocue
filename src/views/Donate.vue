@@ -1,62 +1,65 @@
 <template>
   <div class="app-container">
-
-    
-    <!-- 打赏图片 -->
-    <el-row type="flex" justify="center" :gutter="20" style="margin-bottom: 30px;">
-      <el-col :span="20" style="display: flex; justify-content: center; align-items: center;">
-        <el-card shadow="hover" :body-style="{ padding: '20px' }" class="donate-card">
-          <div class="donate-info">
-            <h3>感谢您的支持！</h3>
-            <p>您的打赏是我持续更新的动力</p>
-          </div>
-          <div class="donate-image">
-            <el-image 
-              style="width: 100%; border-radius: 12px;"
-              :src="require('@/assets/donate.jpg')"
-              fit="cover"
-            />
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
-    
-    <!-- 打赏记录 -->
-    <el-row type="flex" justify="center" :gutter="20">
-      <el-col :span="20">
-          <el-card shadow="hover" class="records-card">
-            <div class="card-header">
-              <h3>打赏记录</h3>
-              <p>每一份支持都值得被记录</p>
-            </div>
-            <el-table
-              :data="list"
-              style="width: 100%"
-            >
-              <el-table-column
-                prop="username"
-                label="昵称"
-                width="150"
-              />
-              <el-table-column
-                prop="money"
-                label="金额"
-                width="100"
-              />
-              <el-table-column
-                prop="message"
-                label="留言"
-                min-width="200"
-              />
-              <el-table-column
-                prop="feedback"
-                label="需求"
-                min-width="150"
-              />
-            </el-table>
-          </el-card>
-      </el-col>
-    </el-row>
+    <!-- 打赏区域 -->
+    <el-card shadow="hover" class="donate-main-card">
+      <!-- 打赏图片 -->
+      <div class="donate-image-section">
+        <div class="donate-info">
+          <h3>感谢您的支持！</h3>
+          <p>您的打赏是我持续更新的动力</p>
+        </div>
+        <div class="donate-image">
+          <el-image 
+            style="width: 100%; border-radius: 12px;"
+            :src="require('@/assets/donate.jpg')"
+            fit="cover"
+          />
+        </div>
+      </div>
+      
+      <!-- 打赏记录 -->
+      <div class="donate-records-section">
+        <div class="card-header">
+          <h3>打赏记录</h3>
+          <p>每一份支持都值得被记录</p>
+        </div>
+        <el-table
+          :data="list"
+          style="width: 100%"
+          show-header="true"
+          header-row-class-name="table-header-row"
+        >
+          <el-table-column
+            prop="username"
+            label="昵称"
+            width="150"
+            header-align="center"
+            align="center"
+          />
+          <el-table-column
+            prop="money"
+            label="金额"
+            width="100"
+            header-align="center"
+            align="center"
+          />
+          <el-table-column
+            prop="message"
+            label="留言"
+            min-width="200"
+            header-align="center"
+            align="left"
+          />
+          <el-table-column
+            prop="feedback"
+            label="需求"
+            min-width="150"
+            header-align="center"
+            align="left"
+          />
+        </el-table>
+      </div>
+    </el-card>
   </div>
 </template>
 
@@ -102,39 +105,45 @@ h2 {
   text-align: center;
 }
 
-/* 打赏卡片 */
-.donate-card {
+/* 打赏主卡片 */
+.donate-main-card {
   border-radius: 20px !important;
   box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2) !important;
   overflow: hidden !important;
   transition: all 0.3s ease !important;
-  max-width: 600px !important;
+  width: 100%;
 }
 
-.donate-card:hover {
+.donate-main-card:hover {
   transform: translateY(-5px) !important;
   box-shadow: 0 12px 40px rgba(102, 126, 234, 0.3) !important;
+}
+
+/* 打赏图片区域 */
+.donate-image-section {
+  padding: 20px;
 }
 
 .donate-info {
   padding: 20px;
   text-align: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 12px;
   margin-bottom: 20px;
-  color: white;
+  margin-top: 0;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 .donate-info h3 {
-  color: white !important;
   font-size: 18px;
   font-weight: 600;
+  color: #667eea !important;
   margin-bottom: 8px;
+  margin-top: 0;
 }
 
 .donate-info p {
-  color: rgba(255, 255, 255, 0.9) !important;
   font-size: 14px;
+  color: #666 !important;
   margin: 0;
 }
 
@@ -142,13 +151,12 @@ h2 {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
 }
 
-/* 记录卡片 */
-.records-card {
-  border-radius: 20px !important;
-  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2) !important;
-  overflow: hidden !important;
+/* 打赏记录区域 */
+.donate-records-section {
+  padding: 20px;
 }
 
 .card-header {
@@ -163,6 +171,7 @@ h2 {
   font-weight: 600;
   color: #667eea;
   margin-bottom: 8px;
+  margin-top: 0;
 }
 
 .card-header p {
@@ -185,6 +194,50 @@ h2 {
   color: white !important;
   font-weight: 600 !important;
   text-align: center !important;
+}
+
+/* 表头标题样式 */
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.header-tooltip {
+  font-size: 14px;
+  cursor: help;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.header-tooltip:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* 表头样式增强 */
+.table-header-row {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
+}
+
+:deep(.el-table__header th) {
+  color: white !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  padding: 12px 0 !important;
+  font-size: 14px !important;
+}
+
+:deep(.el-table__header-wrapper) {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  border-radius: 8px 8px 0 0 !important;
+  overflow: hidden !important;
+}
+
+:deep(.el-table__header) {
+  width: 100% !important;
 }
 
 :deep(.el-table__body tr:hover) {
@@ -221,8 +274,9 @@ h2 {
     font-size: 24px;
   }
   
-  .settings-grid {
-    grid-template-columns: 1fr;
+  .donate-image-section,
+  .donate-records-section {
+    padding: 15px;
   }
 }
 </style>

@@ -21,19 +21,18 @@
     </div>
 
     <!-- 主内容区 -->
-    <el-card class="main-card">
-      <el-row type="flex" justify="start">
+    <el-card class="main-card" :body-style="{ padding: '20px' }">
+      <el-row type="flex" justify="start" :gutter="20">
         <el-col :span="4">
           <el-menu 
             router
             background-color="#545c64" 
             text-color="#ffffff"
             :default-active="$route.path"
-            style="height: 750px;"
             class="sidebar-menu"
           >
             <el-menu-item index="/" class="menu-item">
-              <el-icon><Home /></el-icon>
+              <el-icon><HomeFilled /></el-icon>
               <span>提词器</span>
             </el-menu-item>
             <el-menu-item index="/donate" class="menu-item">
@@ -42,7 +41,7 @@
             </el-menu-item>
           </el-menu>
         </el-col>
-        <el-col :span="20" style="padding-left: 20px;">
+        <el-col :span="20">
           <router-view></router-view>
         </el-col>
       </el-row>
@@ -101,11 +100,11 @@
 </template>
 
 <script>
-import { Home, Present, Star, CopyDocument, User, ChatDotRound, Link, MagicStick, Refresh } from '@element-plus/icons'
+import { HomeFilled, Present, Star, CopyDocument, User, ChatDotRound, Link, MagicStick, Refresh } from '@element-plus/icons'
 
 export default {
   components: {
-    Home,
+    HomeFilled,
     Present,
     Star,
     CopyDocument,
@@ -127,11 +126,15 @@ export default {
 }
 
 body {
-  font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'PingFang SC', 'Helvetica Neue', Arial, 'Microsoft YaHei', sans-serif;
   background: linear-gradient(135deg, #f5f7ff 0%, #eef0ff 100%);
   min-height: 100vh;
   color: #333;
   overflow-x: hidden;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* 应用容器 */
@@ -206,7 +209,7 @@ body {
 }
 
 .page-title {
-  font-size: 42px;
+  font-size: 48px;
   font-weight: bold;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   -webkit-background-clip: text;
@@ -215,6 +218,7 @@ body {
   animation: glow 2s ease-in-out infinite alternate;
   text-shadow: 0 4px 20px rgba(102, 126, 234, 0.5);
   letter-spacing: 2px;
+  font-family: 'PingFang SC', 'Helvetica Neue', Arial, 'Microsoft YaHei', sans-serif;
 }
 
 .page-description {
@@ -223,6 +227,7 @@ body {
   margin: 0;
   animation: fadeInUp 1s ease-out 0.3s both;
   font-weight: 500;
+  font-family: 'PingFang SC', 'Helvetica Neue', Arial, 'Microsoft YaHei', sans-serif;
 }
 
 /* 主卡片 */
@@ -238,11 +243,20 @@ body {
 
 /* 侧边栏菜单 */
 .sidebar-menu {
-  border-radius: 16px !important;
+  border-radius: 20px !important;
   overflow: hidden !important;
-  background: linear-gradient(135deg, #545c64 0%, #414850 100%) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
-  backdrop-filter: blur(10px) !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4) !important;
+  backdrop-filter: blur(15px) !important;
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.3s ease !important;
+  min-height: 750px;
+  height: 100%;
+}
+
+.sidebar-menu:hover {
+  transform: translateX(5px) !important;
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6) !important;
 }
 
 .menu-item {
@@ -250,30 +264,81 @@ body {
   align-items: center !important;
   gap: 12px !important;
   transition: all 0.3s ease !important;
-  height: 65px !important;
+  height: 70px !important;
   font-size: 16px !important;
-  border-left: 4px solid transparent !important;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05) !important;
+  margin: 4px 8px !important;
+  border-radius: 12px !important;
+}
+
+.menu-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
+  transition: all 0.4s ease;
+}
+
+.menu-item:hover::before {
+  left: 100%;
 }
 
 .menu-item:hover {
   background: rgba(255, 255, 255, 0.15) !important;
-  border-left-color: rgba(102, 126, 234, 0.5) !important;
-  transform: translateX(5px) !important;
+  transform: translateX(10px) !important;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2) !important;
 }
 
 .menu-item.is-active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  border-left-color: #ffffff !important;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4) !important;
+  background: rgba(255, 255, 255, 0.25) !important;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3) !important;
+}
+
+.menu-item.is-active::before {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
 .menu-item .el-icon {
-  font-size: 20px !important;
+  font-size: 22px !important;
   margin-left: 10px !important;
+  margin-right: 12px !important;
+  transition: all 0.3s ease !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.menu-item:hover .el-icon {
+  transform: scale(1.2) !important;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) !important;
+  color: #ffffff !important;
+}
+
+.menu-item.is-active .el-icon {
+  transform: scale(1.25) !important;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 1)) !important;
+  color: #ffffff !important;
 }
 
 .menu-item span {
-  font-weight: 500 !important;
+  font-weight: 600 !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease !important;
+}
+
+.menu-item:hover span {
+  color: #ffffff !important;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8) !important;
+}
+
+.menu-item.is-active span {
+  color: #ffffff !important;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1) !important;
 }
 
 /* 右侧联系栏 */
