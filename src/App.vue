@@ -123,6 +123,7 @@ export default {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  resize: none !important;
 }
 
 body {
@@ -142,6 +143,9 @@ body {
   padding: 20px;
   max-width: 1400px;
   margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 /* 页面标题 */
@@ -252,10 +256,11 @@ body {
   transition: all 0.3s ease !important;
   min-height: 750px;
   height: 100%;
+  max-height: 800px;
 }
 
 .sidebar-menu:hover {
-  transform: translateX(5px) !important;
+  transform: none !important;
   box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6) !important;
 }
 
@@ -290,7 +295,7 @@ body {
 
 .menu-item:hover {
   background: rgba(255, 255, 255, 0.15) !important;
-  transform: translateX(10px) !important;
+  transform: none !important;
   box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2) !important;
 }
 
@@ -312,13 +317,13 @@ body {
 }
 
 .menu-item:hover .el-icon {
-  transform: scale(1.2) !important;
+  transform: none !important;
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) !important;
   color: #ffffff !important;
 }
 
 .menu-item.is-active .el-icon {
-  transform: scale(1.25) !important;
+  transform: none !important;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 1)) !important;
   color: #ffffff !important;
 }

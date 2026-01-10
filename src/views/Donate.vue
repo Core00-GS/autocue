@@ -25,36 +25,38 @@
         </div>
         <el-table
           :data="list"
-          style="width: 100%"
+          style="width: 100%; max-height: 600px;"
           show-header="true"
           header-row-class-name="table-header-row"
+          :stripe="false"
+          :border="false"
         >
           <el-table-column
             prop="username"
             label="昵称"
             width="150"
-            header-align="center"
-            align="center"
+            header-align="left"
+            align="left"
           />
           <el-table-column
             prop="money"
             label="金额"
             width="100"
-            header-align="center"
-            align="center"
+            header-align="left"
+            align="left"
           />
           <el-table-column
             prop="message"
-            label="留言"
+            label="需求"
             min-width="200"
-            header-align="center"
+            header-align="left"
             align="left"
           />
           <el-table-column
             prop="feedback"
-            label="需求"
+            label="留言"
             min-width="150"
-            header-align="center"
+            header-align="left"
             align="left"
           />
         </el-table>
@@ -157,6 +159,8 @@ h2 {
 /* 打赏记录区域 */
 .donate-records-section {
   padding: 20px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .card-header {
@@ -179,44 +183,47 @@ h2 {
   color: #666;
   margin: 0;
 }
+
 /* 表格样式 */
 :deep(.el-table) {
   border-radius: 12px !important;
   overflow: hidden !important;
 }
 
-/* 表头样式 */
 :deep(.el-table__header-wrapper) {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  border-radius: 8px 8px 0 0 !important;
-  overflow: hidden !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+:deep(.el-table__header th) {
+  color: #2d3748 !important;
+  font-weight: 600 !important;
+  text-align: left !important;
+  padding: 12px 0 !important;
+  font-size: 14px !important;
+  background: transparent !important;
+}
+
+:deep(.el-table__header .el-table__cell) {
+  background: transparent !important;
+  color: #2d3748 !important;
+}
+
+:deep(.el-table__header .cell) {
+  color: #2d3748 !important;
+  font-weight: 600 !important;
+}
+
+/* 表头样式增强 */
+.table-header-row {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white !important;
 }
 
 :deep(.el-table__header) {
   width: 100% !important;
 }
 
-:deep(.el-table__header th) {
-  color: white !important;
-  font-weight: 600 !important;
-  text-align: center !important;
-  padding: 12px 0 !important;
-  font-size: 14px !important;
-  border-bottom: none !important;
-}
-
-:deep(.el-table__header th>.cell) {
-  color: white !important;
-  font-weight: 600 !important;
-  text-align: center !important;
-  font-size: 14px !important;
-}
-
-/* 表头行样式 */
-.table-header-row {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-  color: white !important;
-}
 :deep(.el-table__body tr:hover) {
   background: #f5f7ff !important;
 }
@@ -227,6 +234,70 @@ h2 {
 
 :deep(.el-table__row:hover) {
   transform: translateX(5px) !important;
+}
+
+/* 表格单元格样式 */
+:deep(.el-table__cell) {
+  color: #4a5568 !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+:deep(.el-table__cell:hover) {
+  color: #667eea !important;
+}
+
+:deep(.el-table__body .cell) {
+  color: #4a5568 !important;
+  font-weight: 500 !important;
+}
+
+:deep(.el-table__body .cell:hover) {
+  color: #667eea !important;
+}
+
+/* 昵称列特殊样式 */
+:deep(.el-table__column--index-0 .el-table__cell) {
+  color: #667eea !important;
+  font-weight: 600 !important;
+}
+
+/* 解决ResizeObserver错误 */
+.el-table {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.el-table__header,
+.el-table__body {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.el-table__body-wrapper {
+  overflow: auto !important;
+  box-sizing: border-box !important;
+}
+
+.el-table__header-wrapper {
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* 禁用表格行的变换效果以避免ResizeObserver错误 */
+:deep(.el-table__row:hover) {
+  transform: none !important;
+  background: #f5f7ff !important;
+}
+
+/* 全局ResizeObserver错误修复 */
+* {
+  resize: none !important;
 }
 
 /* 动画效果 */
