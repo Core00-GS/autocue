@@ -25,10 +25,10 @@
 ### 方法一：克隆仓库
 ```bash
 # 克隆项目
-git clone https://github.com/tinygeeker/autocue.git
+git clone https://github.com/tinygeeker/aiManagerPrompter.git
 
 # 进入项目目录
-cd autocue
+cd aiManagerPrompter
 
 # 安装依赖
 npm install
@@ -39,7 +39,7 @@ npm run tinygeeker
 
 ### 方法二：直接访问
 如果你不想本地部署，可以直接访问在线版本：
-> 🔗 [在线体验地址](https://tinygeeker.com/autocue)
+> 🔗 [在线体验地址](https://tinygeeker.com/aiManagerPrompter?from=github)
 
 ## 📦 技术栈
 - **前端框架**：Vue 3.2.13+
@@ -59,7 +59,7 @@ npm run tinygeeker
 ## 💖 项目贡献
 如果你觉得这个项目对你有帮助，不妨请我喝杯奶茶吧～ 你的支持是我持续更新的动力！ :heart:
 
-![支持作者](https://tinygeeker.github.io/userinfo/donate/multiple.jpg)
+![支持作者](https://tinygeeker.github.io/assets/user/donate.jpg)
 
 ## 🌐 浏览器支持
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>iOS Safari |
@@ -67,7 +67,7 @@ npm run tinygeeker
 | IE11, Edge | 最新版本 | 最新版本 | 最新版本 | 最新版本 |
 
 ## 📄 许可证
-本项目采用 [MIT](https://github.com/tinygeeker/autocue/blob/main/LICENSE) 许可证。
+本项目采用 [MIT](https://github.com/tinygeeker/aiManagerPrompter/blob/main/LICENSE) 许可证。
 
 ## 🤝 开源声明
 - 本项目终身开源，禁止商用
